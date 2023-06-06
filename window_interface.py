@@ -1,8 +1,8 @@
-import ui
 import tkinter as tk
+from ui import UserInterface
 
 
-class WindowInterface(ui.UserInterface):
+class WindowInterface(UserInterface):
 
     def _change_cell_colour(self, button):
         if button.cget("background") == "#fff":
@@ -59,7 +59,6 @@ class WindowInterface(ui.UserInterface):
         x0 = 0
         x1 = 560
         y0 = 0
-        y1 = 0
 
         # Create horizontal matrix division
         for x in range(1, intervals_hor):
@@ -68,7 +67,6 @@ class WindowInterface(ui.UserInterface):
             tk.Canvas.create_line(matrix_canvas, x0, y0, x1, y1, width=1, fill="#1f1f1f")
 
         x0 = 0
-        x1 = 0
         y0 = 0
         y1 = 560
 
@@ -85,10 +83,12 @@ class WindowInterface(ui.UserInterface):
         w = hor_delta
         h = ver_delta
 
+        # Render clickable cells
         for i in range(intervals_ver):
             for j in range(intervals_hor):
                 cell = tk.Button(matrix_canvas, bg="#fff", width=int(w), height=int(h), borderwidth=1)
-                cell.configure(command=lambda button=cell: self._change_cell_colour(button), activebackground=str(cell.cget("background")))
+                cell.configure(command=lambda button=cell: self._change_cell_colour(button),
+                               activebackground=str(cell.cget("background")))
                 cell.place(x=x, y=y)
                 x += hor_delta
                 cells.append(cell)
@@ -96,6 +96,3 @@ class WindowInterface(ui.UserInterface):
             x = 0
 
         root.mainloop()
-
-    def _run(self, iters):
-        pass

@@ -4,6 +4,3 @@ class UserInterface:
 
     def view_menu(self, iters):
         pass
-
-    def _run(self, iters):
-        pass
