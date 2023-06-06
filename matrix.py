@@ -4,17 +4,6 @@ class Matrix:
         self.__cols: int = cols
         self.__data: list = [[0] * cols for _ in range(rows)]
 
-    def _view(self):
-        rows = len(self.__data)
-        cols = len(self.__data[0])
-        for x in range(rows):
-            for i in range(cols):
-                if i != cols - 1:
-                    print(self.__data[x][i], end=" ")
-                else:
-                    print(self.__data[x][i])
-        print()
-
     def invert_cell_state(self, row, col):
         if self.__data[row][col] == 0:
             self.__data[row][col] = 1

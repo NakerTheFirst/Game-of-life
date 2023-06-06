@@ -10,8 +10,7 @@ class WindowInterface(ui.UserInterface):
         else:
             button.configure(bg="#fff")
 
-    def _initialise(self):
-        """This is more like a run function currently"""
+    def view_menu(self, iters):
 
         # Root config
         root = tk.Tk()

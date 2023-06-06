@@ -1,23 +1,26 @@
+from input import Input
+from matrix import Matrix
 from window_interface import WindowInterface
 from console_interface import ConsoleInterface
-import matrix
-import time
 
 
 class Engine:
-    def __init__(self, rows, cols, interface_type):
-        self.matrix = matrix.Matrix(rows, cols)
-        self._rows = rows
-        self._cols = cols
+    def __init__(self):
+        self.__input = Input()
+        self.__matrix = None
+        self.__ui = None
 
-        # Set the interface type
-        if interface_type.lower() == 'console':
-            self.interface = ConsoleInterface(self.matrix)
-        elif interface_type.lower() == 'window':
-            self.interface = WindowInterface(self.matrix)
-        else:
-            raise ValueError("Invalid interface type. Please choose either 'console' or 'window'.")
+    def run(self):
+        self.__input.take_rows()
+        self.__input.take_cols()
+        self.__input.take_ui_type()
 
-    def initialise(self, iters):
-        self.interface._initialise()
-        self.interface._run(iters)
+        # Instantiate matrix and chosen interface objects
+        self.__matrix = Matrix(self.__input.get_rows(), self.__input.get_cols())
+
+        if self.__input.get_ui_type() == "console":
+            self.__ui = ConsoleInterface(self.__matrix)
+        elif self.__input.get_ui_type() == "window":
+            self.__ui = WindowInterface(self.__matrix)
+
+        self.__ui.view_menu(iters=10)

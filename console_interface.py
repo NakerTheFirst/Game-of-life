@@ -1,25 +1,23 @@
 import ui
 import time
+from input import Input
 
 
 class ConsoleInterface(ui.UserInterface):
-    def _initialise(self):
-        print("Enter the row and column numbers of the cells to be inverted, separated by space.")
-        print("Enter a blank line to finish.")
+    def view_menu(self, iters):
+        # Taking input for which cell to invert, inverting
+        Input.take_row_col_to_invert(self._matrix.invert_cell_state)
 
-        while True:
-            try:
-                row_col_input = input().strip()
-                if not row_col_input:
-                    break
-                row, col = row_col_input.split()
-                row, col = int(row), int(col)
-                self._matrix.invert_cell_state(row, col)
-            except ValueError:
-                print("Invalid input, please try again.")
-
-    def _run(self, iters):
+        # Printing the matrix's elements
         for i in range(iters):
-            self._matrix._view()
+            rows, cols, data = self._matrix.get_rows(), self._matrix.get_cols(), self._matrix.get_data()
+            for x in range(rows):
+                for j in range(cols):
+                    if j != cols - 1:
+                        print(data[x][j], end=" ")
+                    else:
+                        print(data[x][j])
+            print()
+
             self._matrix.update()
             time.sleep(1.5)
